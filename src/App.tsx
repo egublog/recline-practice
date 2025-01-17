@@ -12,9 +12,9 @@ import {
   Badge,
   Tooltip
 } from "@chakra-ui/react";
-import { TodoForm } from "@/components/TodoForm";
-import { TodoList } from "@/components/TodoList";
-import { useTodos } from "@/hooks/useTodos";
+import { TodoForm } from "./components/TodoForm";
+import { TodoList } from "./components/TodoList";
+import { useTodos } from "./hooks/useTodos";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 function App() {
