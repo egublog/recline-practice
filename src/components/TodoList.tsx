@@ -1,3 +1,5 @@
+import { VStack } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { Todo } from "@/types/todo";
 import TodoItem from "@/components/TodoItem";
 
@@ -8,9 +10,18 @@ interface TodoListProps {
   onEdit: (id: number, text: string) => void;
 }
 
+const MotionVStack = motion(VStack);
+
 export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
   return (
-    <div className="space-y-1 animate-fade-in">
+    <MotionVStack
+      spacing={1}
+      align="stretch"
+      w="100%"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
@@ -20,6 +31,6 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
           onEdit={onEdit}
         />
       ))}
-    </div>
+    </MotionVStack>
   );
 }
