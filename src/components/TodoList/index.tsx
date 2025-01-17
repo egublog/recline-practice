@@ -1,7 +1,7 @@
 import { VStack, Box, Text, Divider, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Todo } from "@/types/todo";
-import TodoItem from "@/components/TodoItem";
+import { Todo } from "../../types/todo";
+import TodoItem from "../TodoItem";
 import { useStyles } from "./styles";
 import { listAnimations } from "./animations";
 

@@ -4,7 +4,6 @@ export const useStyles = () => {
   const buttonScheme = useColorModeValue("teal", "purple");
   const textColor = useColorModeValue("gray.700", "gray.100");
   const cardBg = useColorModeValue("white", "gray.700");
-  const borderColor = useColorModeValue("teal.500", "purple.500");
   const completedTextColor = useColorModeValue("gray.400", "gray.500");
   const hoverBg = useColorModeValue("gray.50", "gray.600");
 
@@ -13,9 +12,9 @@ export const useStyles = () => {
       mb: 3,
       boxShadow: "base",
       bg: cardBg,
-      position: "relative",
-      overflow: "hidden",
       sx: {
+        position: "relative",
+        overflow: "hidden",
         transform: "translateX(0)",
         transition: "all 0.3s ease",
         "&:hover": {

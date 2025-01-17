@@ -7,12 +7,11 @@ import {
   CardBody,
   Checkbox,
   Divider,
-  useColorModeValue,
   Text,
   Flex
 } from "@chakra-ui/react";
-import type { TodoItemProps } from "@/types/todo";
-import { useStyles } from "./styles";
+import type { TodoItemProps } from "../../types/todo";
+import { useStyles } from "./styles.ts";
 
 const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
