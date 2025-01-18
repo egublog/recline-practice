@@ -1,9 +1,7 @@
-import { VStack, Box, Text, Divider, Flex } from "@chakra-ui/react";
-import { motion } from "framer-motion";
+import { VStack, Box, Text, Flex } from "@chakra-ui/react";
 import { Todo } from "../../types/todo";
 import TodoItem from "../TodoItem";
 import { useStyles } from "./styles";
-import { listAnimations } from "./animations";
 
 interface TodoListProps {
   todos: Todo[];
@@ -12,37 +10,23 @@ interface TodoListProps {
   onEdit: (id: number, text: string) => void;
 }
 
-const MotionVStack = motion(VStack);
-const MotionBox = motion(Box);
-
 export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
-  const completedTodos = todos.filter(todo => todo.completed);
-  const pendingTodos = todos.filter(todo => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
+  const pendingTodos = todos.filter((todo) => !todo.completed);
   const styles = useStyles();
-  
+
   return (
-    <MotionVStack
-      spacing={6}
-      align="stretch"
-      w="100%"
-      initial="hidden"
-      animate="show"
-      variants={listAnimations.container}
-    >
+    <VStack gap={6} align="stretch" w="100%">
       {/* 未完了タスクセクション */}
       {pendingTodos.length > 0 && (
-        <MotionBox variants={listAnimations.listItem}>
+        <Box>
           <Box {...styles.sectionHeader}>
             <Flex justify="space-between" align="center">
-              <Text {...styles.sectionTitle}>
-                未完了のタスク
-              </Text>
-              <Text {...styles.countText}>
-                {pendingTodos.length} 件
-              </Text>
+              <Text {...styles.sectionTitle}>未完了のタスク</Text>
+              <Text {...styles.countText}>{pendingTodos.length} 件</Text>
             </Flex>
           </Box>
-          <VStack spacing={3} align="stretch">
+          <VStack gap={3} align="stretch">
             {pendingTodos.map((todo) => (
               <TodoItem
                 key={todo.id}
@@ -53,27 +37,23 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
               />
             ))}
           </VStack>
-        </MotionBox>
+        </Box>
       )}
 
       {pendingTodos.length > 0 && completedTodos.length > 0 && (
-        <Divider {...styles.divider} />
+        <Box divideX="2px" divideColor={styles.divider} />
       )}
 
       {/* 完了済みタスクセクション */}
       {completedTodos.length > 0 && (
-        <MotionBox variants={listAnimations.listItem}>
+        <Box>
           <Box {...styles.completedSectionHeader}>
             <Flex justify="space-between" align="center">
-              <Text {...styles.completedSectionTitle}>
-                完了済みのタスク
-              </Text>
-              <Text {...styles.countText}>
-                {completedTodos.length} 件
-              </Text>
+              <Text {...styles.completedSectionTitle}>完了済みのタスク</Text>
+              <Text {...styles.countText}>{completedTodos.length} 件</Text>
             </Flex>
           </Box>
-          <VStack spacing={3} align="stretch">
+          <VStack gap={3} align="stretch">
             {completedTodos.map((todo) => (
               <TodoItem
                 key={todo.id}
@@ -84,17 +64,14 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
               />
             ))}
           </VStack>
-        </MotionBox>
+        </Box>
       )}
 
       {todos.length === 0 && (
-        <MotionBox
-          variants={listAnimations.listItem}
-          {...styles.emptyState}
-        >
+        <Box {...styles.emptyState}>
           <Text>タスクがありません。新しいタスクを追加してください。</Text>
-        </MotionBox>
+        </Box>
       )}
-    </MotionVStack>
+    </VStack>
   );
 }

@@ -1,17 +1,8 @@
 import { useState, useCallback, memo, ChangeEvent, KeyboardEvent } from "react";
-import {
-  Box,
-  Input,
-  Button,
-  Card,
-  CardBody,
-  Checkbox,
-  Divider,
-  Text,
-  Flex
-} from "@chakra-ui/react";
+import { Box, Input, Button, Card, Text, Flex } from "@chakra-ui/react";
 import type { TodoItemProps } from "../../types/todo";
 import { useStyles } from "./styles.ts";
+import { Checkbox } from "../ui/checkbox.tsx";
 
 const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -39,18 +30,18 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
   );
 
   return (
-    <Card {...styles.card}>
-      <CardBody>
+    <Card.Root {...styles.card}>
+      <Card.Body>
         <Flex direction="column">
           <Flex alignItems="center" gap={3}>
             <Box position="relative">
               <Checkbox
-                isChecked={todo.completed}
+                checked={todo.completed}
                 onChange={() => onToggle(todo.id)}
                 {...styles.checkbox}
               />
             </Box>
-            
+
             {isEditing ? (
               <Flex alignItems="center" gap={2} flex={1}>
                 <Input
@@ -81,18 +72,17 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                 onClick={() => setIsEditing(true)}
                 {...styles.textBox}
               >
-                <Text {...styles.todoText(todo.completed)}>
-                  {todo.text}
-                </Text>
+                <Text {...styles.todoText(todo.completed)}>{todo.text}</Text>
               </Box>
             )}
           </Flex>
 
           {!isEditing && (
             <>
-              <Divider {...styles.divider} />
+              <Box divideX="2px" my={2} divideColor={styles.dividerColor} />
               <Flex justify="flex-end" gap={2} mt={2}>
                 <Button
+                  variant="ghost"
                   onClick={() => setIsEditing(true)}
                   size="sm"
                   {...styles.editButton}
@@ -110,8 +100,8 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
             </>
           )}
         </Flex>
-      </CardBody>
-    </Card>
+      </Card.Body>
+    </Card.Root>
   );
 });
 
