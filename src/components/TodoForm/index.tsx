@@ -24,7 +24,7 @@ interface TodoFormProps {
 
 export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, ref) => {
   const [newTodo, setNewTodo] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const styles = useStyles();
 
@@ -81,7 +81,7 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
       </Card>
 
       <Modal
-        isOpen={isOpen}
+        isOpen={open}
         onClose={onClose}
         initialFocusRef={initialRef}
         isCentered
