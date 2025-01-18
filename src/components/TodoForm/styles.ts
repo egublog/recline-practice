@@ -41,7 +41,7 @@ export const useStyles = () => {
       backdropFilter: "blur(10px)"
     },
 
-    modalHeader: {
+    dialogHeader: {
       bgGradient: `linear(to-r, ${buttonScheme}.400, ${buttonScheme}.600)`,
       color: "white"
     },

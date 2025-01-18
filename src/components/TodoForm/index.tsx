@@ -1,20 +1,24 @@
-import { useState, useCallback, ChangeEvent, KeyboardEvent, forwardRef, useRef } from "react";
+import {
+  useState,
+  useCallback,
+  ChangeEvent,
+  KeyboardEvent,
+  forwardRef,
+  useRef,
+} from "react";
 import {
   Box,
   Input,
   Button,
   Card,
-  CardBody,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  Divider,
-  Text
+  DialogRoot,
+  DialogBackdrop,
+  DialogActionTrigger,
+  DialogContent,
+  DialogBody,
+  Text,
+  DialogHeader,
+  DialogFooter,
 } from "@chakra-ui/react";
 import { useStyles } from "./styles";
 
@@ -22,100 +26,99 @@ interface TodoFormProps {
   onAdd: (text: string) => boolean;
 }
 
-export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, ref) => {
-  const [newTodo, setNewTodo] = useState("");
-  const { open, onOpen, onClose } = useDisclosure();
-  const initialRef = useRef(null);
-  const styles = useStyles();
+export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(
+  ({ onAdd }, ref) => {
+    const [newTodo, setNewTodo] = useState("");
+    const [open, setOpen] = useState(false);
+    const initialRef = useRef(null);
+    const styles = useStyles();
 
-  const handleAddTodo = useCallback(() => {
-    if (newTodo.trim()) {
-      onOpen();
-    }
-  }, [newTodo, onOpen]);
-
-  const confirmAdd = useCallback(() => {
-    if (onAdd(newTodo)) {
-      setNewTodo("");
-      onClose();
-    }
-  }, [newTodo, onAdd, onClose]);
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleAddTodo();
+    const handleAddTodo = useCallback(() => {
+      if (newTodo.trim()) {
+        setOpen(true);
       }
-    },
-    [handleAddTodo]
-  );
+    }, [newTodo, setOpen]);
 
-  return (
-    <>
-      <Card {...styles.card}>
-        <CardBody>
-          <Box display="flex" gap={3} alignItems="center">
-            <Input
-              ref={ref}
-              value={newTodo}
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setNewTodo(e.target.value)
-              }
-              onKeyDown={handleKeyDown}
-              placeholder="新しいタスクを入力..."
-              flex={1}
-              {...styles.input}
-              size="lg"
-            />
-            <Button
-              onClick={handleAddTodo}
-              {...styles.addButton}
-              size="lg"
-              px={8}
-            >
-              追加
-            </Button>
-          </Box>
-        </CardBody>
-      </Card>
+    const confirmAdd = useCallback(() => {
+      if (onAdd(newTodo)) {
+        setNewTodo("");
+      }
+    }, [newTodo, onAdd]);
 
-      <Modal
-        isOpen={open}
-        onClose={onClose}
-        initialFocusRef={initialRef}
-        isCentered
-      >
-        <ModalOverlay {...styles.modalOverlay} />
-        <ModalContent>
-          <ModalHeader {...styles.modalHeader}>
-            タスクの追加
-          </ModalHeader>
-          <ModalCloseButton color="white" />
-          <ModalBody pt={6}>
-            <Text>以下のタスクを追加しますか？</Text>
-            <Divider my={4} />
-            <Text fontWeight="bold" fontSize="lg">
-              {newTodo}
-            </Text>
-          </ModalBody>
+    const handleKeyDown = useCallback(
+      (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          handleAddTodo();
+        }
+      },
+      [handleAddTodo]
+    );
 
-          <ModalFooter>
-            <Button variant="ghost" mr={3} onClick={onClose}>
-              キャンセル
-            </Button>
-            <Button
-              ref={initialRef}
-              {...styles.confirmButton}
-              onClick={confirmAdd}
-            >
-              追加する
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-});
+    return (
+      <>
+        <Card.Root {...styles.card}>
+          <Card.Body>
+            <Box display="flex" gap={3} alignItems="center">
+              <Input
+                ref={ref}
+                value={newTodo}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setNewTodo(e.target.value)
+                }
+                onKeyDown={handleKeyDown}
+                placeholder="新しいタスクを入力..."
+                flex={1}
+                {...styles.input}
+                size="lg"
+              />
+              <Button
+                onClick={handleAddTodo}
+                {...styles.addButton}
+                size="lg"
+                px={8}
+              >
+                追加
+              </Button>
+            </Box>
+          </Card.Body>
+        </Card.Root>
+
+        <DialogRoot
+          open={open}
+          initialFocusEl={() => initialRef.current}
+          placement="center"
+          onOpenChange={(e) => setOpen(e.open)}
+        >
+          <DialogBackdrop {...styles.modalOverlay} />
+          <DialogContent>
+            <DialogHeader {...styles.dialogHeader}>タスクの追加</DialogHeader>
+            <DialogBody pt={6}>
+              <Text>以下のタスクを追加しますか？</Text>
+              <Text fontWeight="bold" fontSize="lg">
+                {newTodo}
+              </Text>
+            </DialogBody>
+
+            <DialogFooter>
+              <DialogActionTrigger asChild>
+                <Button variant="ghost" mr={3}>
+                  キャンセル
+                </Button>
+              </DialogActionTrigger>
+              <Button
+                ref={initialRef}
+                {...styles.confirmButton}
+                onClick={confirmAdd}
+              >
+                追加する
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </DialogRoot>
+      </>
+    );
+  }
+);
 
 TodoForm.displayName = "TodoForm";
