@@ -1,4 +1,4 @@
-import { useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "../ui/color-mode";
 
 export const useStyles = () => {
   const buttonScheme = useColorModeValue("teal", "purple");
