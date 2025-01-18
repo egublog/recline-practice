@@ -3,40 +3,38 @@ import {
   Container,
   Heading,
   IconButton,
-  useColorMode,
-  useColorModeValue,
   VStack,
   Text,
   Flex,
-  Divider,
   Badge,
-  Tooltip
 } from "@chakra-ui/react";
 import { TodoForm } from "./components/TodoForm";
 import { TodoList } from "./components/TodoList";
 import { useTodos } from "./hooks/useTodos";
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { Sun, Moon } from "lucide-react";
+import { Tooltip } from "./components/ui/tooltip";
+import { useColorMode, useColorModeValue } from "./components/ui/color-mode";
 
 function App() {
   const { todos, addTodo, toggleTodo, deleteTodo, editTodo } = useTodos();
   const { colorMode, toggleColorMode } = useColorMode();
-  
+
   const bgGradient = useColorModeValue(
     "linear(to-br, gray.50, teal.50, blue.50)",
     "linear(to-br, gray.900, purple.900, gray.900)"
   );
-  
+
   const headerGradient = useColorModeValue(
     "linear(to-r, teal.600, blue.600)",
     "linear(to-r, purple.500, pink.500)"
   );
-  
+
   const boxBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const buttonScheme = useColorModeValue("teal", "purple");
 
-  const completedTodos = todos.filter(todo => todo.completed);
-  const pendingTodos = todos.filter(todo => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
+  const pendingTodos = todos.filter((todo) => !todo.completed);
 
   return (
     <Box
@@ -66,27 +64,24 @@ function App() {
             >
               Todoリスト
             </Heading>
-            <Tooltip label={`${colorMode === 'light' ? 'ダーク' : 'ライト'}モードに切り替え`}>
+            <Tooltip
+              content={`${colorMode === "light" ? "ダーク" : "ライト"}モードに切り替え`}
+            >
               <IconButton
                 aria-label="カラーモード切り替え"
-                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                 onClick={toggleColorMode}
                 variant="ghost"
                 colorScheme={buttonScheme}
-                sx={{
-                  "&:hover": {
-                    transform: "rotate(360deg)",
-                    transition: "transform 0.6s ease-in-out"
-                  }
-                }}
-              />
+              >
+                {colorMode === "light" ? <Moon /> : <Sun />}
+              </IconButton>
             </Tooltip>
           </Flex>
         </Container>
       </Box>
 
       <Container maxW="2xl" flex={1} px={[4, 6]} pb={16}>
-        <VStack spacing={8} align="stretch">
+        <VStack gap={8} align="stretch">
           <Box>
             <Flex justify="center" gap={4} mb={6}>
               <Badge
@@ -120,7 +115,7 @@ function App() {
             <TodoForm onAdd={addTodo} />
           </Box>
 
-          <Divider borderColor={`${buttonScheme}.100`} />
+          <Box divideX="2px" divideColor={`${buttonScheme}.100`} />
 
           <TodoList
             todos={todos}
