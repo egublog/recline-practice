@@ -1,4 +1,4 @@
-import { useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "../ui/color-mode";
 
 export const useStyles = () => {
   const buttonScheme = useColorModeValue("teal", "purple");
@@ -14,15 +14,15 @@ export const useStyles = () => {
       sx: {
         transition: "all 0.2s ease-in-out",
         "&:hover": {
-          transform: "translateY(-2px)"
-        }
-      }
+          transform: "translateY(-2px)",
+        },
+      },
     },
 
     input: {
       _focus: {
         borderColor: `${buttonScheme}.500`,
-        boxShadow: `0 0 0 1px var(--chakra-colors-${buttonScheme}-500)`
+        boxShadow: `0 0 0 1px var(--chakra-colors-${buttonScheme}-500)`,
       },
       bg: inputBg,
     },
@@ -32,22 +32,22 @@ export const useStyles = () => {
       bgGradient: `linear(to-r, ${buttonScheme}.400, ${buttonScheme}.600)`,
       _hover: {
         bgGradient: `linear(to-r, ${buttonScheme}.500, ${buttonScheme}.700)`,
-        transform: "scale(1.05)"
-      }
+        transform: "scale(1.05)",
+      },
     },
 
     modalOverlay: {
       bg: "blackAlpha.300",
-      backdropFilter: "blur(10px)"
+      backdropFilter: "blur(10px)",
     },
 
     dialogHeader: {
       bgGradient: `linear(to-r, ${buttonScheme}.400, ${buttonScheme}.600)`,
-      color: "white"
+      color: "white",
     },
 
     confirmButton: {
-      colorScheme: buttonScheme
-    }
+      colorScheme: buttonScheme,
+    },
   };
 };
