@@ -1,4 +1,5 @@
 import { useState, useCallback, ChangeEvent, KeyboardEvent, forwardRef, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Input,
@@ -27,6 +28,7 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const handleAddTodo = useCallback(() => {
     if (newTodo.trim()) {
@@ -63,7 +65,7 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
                 setNewTodo(e.target.value)
               }
               onKeyDown={handleKeyDown}
-              placeholder="新しいタスクを入力..."
+              placeholder={t('todo.placeholder')}
               flex={1}
               {...styles.input}
               size="lg"
@@ -74,7 +76,7 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
               size="lg"
               px={8}
             >
-              追加
+              {t('todo.add')}
             </Button>
           </Box>
         </CardBody>
@@ -89,11 +91,11 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
         <ModalOverlay {...styles.modalOverlay} />
         <ModalContent>
           <ModalHeader {...styles.modalHeader}>
-            タスクの追加
+            {t('todo.modal.title')}
           </ModalHeader>
           <ModalCloseButton color="white" />
           <ModalBody pt={6}>
-            <Text>以下のタスクを追加しますか？</Text>
+            <Text>{t('todo.modal.confirm')}</Text>
             <Divider my={4} />
             <Text fontWeight="bold" fontSize="lg">
               {newTodo}
@@ -102,14 +104,14 @@ export const TodoForm = forwardRef<HTMLInputElement, TodoFormProps>(({ onAdd }, 
 
           <ModalFooter>
             <Button variant="ghost" mr={3} onClick={onClose}>
-              キャンセル
+              {t('todo.cancel')}
             </Button>
             <Button
               ref={initialRef}
               {...styles.confirmButton}
               onClick={confirmAdd}
             >
-              追加する
+              {t('todo.modal.add')}
             </Button>
           </ModalFooter>
         </ModalContent>

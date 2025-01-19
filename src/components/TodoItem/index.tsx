@@ -1,4 +1,5 @@
 import { useState, useCallback, memo, ChangeEvent, KeyboardEvent } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Box,
   Input,
@@ -17,6 +18,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
   const styles = useStyles();
+  const { t } = useTranslation();
 
   const handleEditSubmit = useCallback(() => {
     if (editText.trim()) {
@@ -67,7 +69,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                   size="sm"
                   {...styles.saveButton}
                 >
-                  保存
+                  {t('todo.save')}
                 </Button>
               </Flex>
             ) : (
@@ -97,14 +99,14 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                   size="sm"
                   {...styles.editButton}
                 >
-                  編集
+                  {t('todo.edit')}
                 </Button>
                 <Button
                   onClick={() => onDelete(todo.id)}
                   size="sm"
                   {...styles.deleteButton}
                 >
-                  削除
+                  {t('todo.delete')}
                 </Button>
               </Flex>
             </>

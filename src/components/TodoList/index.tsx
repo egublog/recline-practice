@@ -4,6 +4,7 @@ import { Todo } from "../../types/todo";
 import TodoItem from "../TodoItem";
 import { useStyles } from "./styles";
 import { listAnimations } from "./animations";
+import { useTranslation } from "react-i18next";
 
 interface TodoListProps {
   todos: Todo[];
@@ -19,6 +20,7 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
   const completedTodos = todos.filter(todo => todo.completed);
   const pendingTodos = todos.filter(todo => !todo.completed);
   const styles = useStyles();
+  const { t } = useTranslation();
   
   return (
     <MotionVStack
@@ -35,10 +37,10 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
           <Box {...styles.sectionHeader}>
             <Flex justify="space-between" align="center">
               <Text {...styles.sectionTitle}>
-                未完了のタスク
+                {t('todo.sections.pending')}
               </Text>
               <Text {...styles.countText}>
-                {pendingTodos.length} 件
+                {t('todo.count', { count: pendingTodos.length })}
               </Text>
             </Flex>
           </Box>
@@ -66,10 +68,10 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
           <Box {...styles.completedSectionHeader}>
             <Flex justify="space-between" align="center">
               <Text {...styles.completedSectionTitle}>
-                完了済みのタスク
+                {t('todo.sections.completed')}
               </Text>
               <Text {...styles.countText}>
-                {completedTodos.length} 件
+                {t('todo.count', { count: completedTodos.length })}
               </Text>
             </Flex>
           </Box>
@@ -92,7 +94,7 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
           variants={listAnimations.listItem}
           {...styles.emptyState}
         >
-          <Text>タスクがありません。新しいタスクを追加してください。</Text>
+          <Text>{t('todo.sections.empty')}</Text>
         </MotionBox>
       )}
     </MotionVStack>
