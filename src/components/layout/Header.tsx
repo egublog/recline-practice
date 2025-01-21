@@ -5,25 +5,20 @@ import {
   Heading,
   HStack,
   IconButton,
-  Tooltip
+  Tooltip,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon, SettingsIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../../hooks/useTheme";
+import { useAppTheme } from "../../contexts/ThemeContext";
 
 interface HeaderProps {
   onLanguageToggle: () => void;
+  onThemeToggle: () => void;
 }
 
-export const Header = ({ onLanguageToggle }: HeaderProps) => {
+export const Header = ({ onLanguageToggle, onThemeToggle }: HeaderProps) => {
   const { t, i18n } = useTranslation();
-  const {
-    colorMode,
-    toggleColorMode,
-    boxBg,
-    headerGradient,
-    buttonScheme
-  } = useTheme();
+  const { mode, boxBg, headerGradient, buttonScheme } = useAppTheme();
 
   return (
     <Box
@@ -44,17 +39,17 @@ export const Header = ({ onLanguageToggle }: HeaderProps) => {
             bgClip="text"
             fontWeight="bold"
           >
-            {t('todo.title')}
+            {t("todo.title")}
           </Heading>
           <HStack spacing={2}>
-            <Tooltip 
-              label={t('todo.toggleLanguage', {
-                lang: i18n.language === 'ja' ? '英語' : '日本語'
+            <Tooltip
+              label={t("todo.toggleLanguage", {
+                lang: i18n.language === "ja" ? "英語" : "日本語",
               })}
             >
               <IconButton
-                aria-label={t('todo.toggleLanguage', {
-                  lang: i18n.language === 'ja' ? '英語' : '日本語'
+                aria-label={t("todo.toggleLanguage", {
+                  lang: i18n.language === "ja" ? "英語" : "日本語",
                 })}
                 icon={<SettingsIcon />}
                 onClick={onLanguageToggle}
@@ -62,23 +57,22 @@ export const Header = ({ onLanguageToggle }: HeaderProps) => {
                 colorScheme={buttonScheme}
               />
             </Tooltip>
-            <Tooltip 
-              label={`${colorMode === 'light' 
-                ? t('todo.darkMode') 
-                : t('todo.lightMode')
+            <Tooltip
+              label={`${
+                mode === "light" ? t("todo.darkMode") : t("todo.lightMode")
               }`}
             >
               <IconButton
-                aria-label={t('todo.toggleColorMode')}
-                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                onClick={toggleColorMode}
+                aria-label={t("todo.toggleColorMode")}
+                icon={mode === "light" ? <MoonIcon /> : <SunIcon />}
+                onClick={onThemeToggle}
                 variant="ghost"
                 colorScheme={buttonScheme}
                 sx={{
                   "&:hover": {
                     transform: "rotate(360deg)",
-                    transition: "transform 0.6s ease-in-out"
-                  }
+                    transition: "transform 0.6s ease-in-out",
+                  },
                 }}
               />
             </Tooltip>

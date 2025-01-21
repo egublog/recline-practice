@@ -1,6 +1,6 @@
 import { Flex, Badge } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "../../hooks/useTheme";
+import { useAppTheme } from "../../contexts/ThemeContext";
 
 interface StatusBadgesProps {
   totalCount: number;
@@ -11,10 +11,10 @@ interface StatusBadgesProps {
 export const StatusBadges = ({
   totalCount,
   completedCount,
-  pendingCount
+  pendingCount,
 }: StatusBadgesProps) => {
   const { t } = useTranslation();
-  const { buttonScheme } = useTheme();
+  const { buttonScheme } = useAppTheme();
 
   return (
     <Flex justify="center" gap={4} mb={6}>
@@ -25,7 +25,7 @@ export const StatusBadges = ({
         colorScheme={buttonScheme}
         variant="subtle"
       >
-        {t('todo.allTasks', { count: totalCount })}
+        {t("todo.allTasks", { count: totalCount })}
       </Badge>
       <Badge
         px={3}
@@ -34,7 +34,7 @@ export const StatusBadges = ({
         colorScheme="green"
         variant="subtle"
       >
-        {t('todo.completed', { count: completedCount })}
+        {t("todo.completed", { count: completedCount })}
       </Badge>
       <Badge
         px={3}
@@ -43,7 +43,7 @@ export const StatusBadges = ({
         colorScheme="blue"
         variant="subtle"
       >
-        {t('todo.remaining', { count: pendingCount })}
+        {t("todo.remaining", { count: pendingCount })}
       </Badge>
     </Flex>
   );
