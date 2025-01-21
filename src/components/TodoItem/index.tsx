@@ -9,7 +9,7 @@ import {
   Checkbox,
   Divider,
   Text,
-  Flex
+  Flex,
 } from "@chakra-ui/react";
 import type { TodoItemProps } from "../../types/todo";
 import { useStyles } from "./styles.ts";
@@ -52,7 +52,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                 {...styles.checkbox}
               />
             </Box>
-            
+
             {isEditing ? (
               <Flex alignItems="center" gap={2} flex={1}>
                 <Input
@@ -69,7 +69,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                   size="sm"
                   {...styles.saveButton}
                 >
-                  {t('todo.save')}
+                  {t("todo.save")}
                 </Button>
               </Flex>
             ) : (
@@ -83,9 +83,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                 onClick={() => setIsEditing(true)}
                 {...styles.textBox}
               >
-                <Text {...styles.todoText(todo.completed)}>
-                  {todo.text}
-                </Text>
+                <Text {...styles.todoText(todo.completed)}>{todo.text}</Text>
               </Box>
             )}
           </Flex>
@@ -99,14 +97,14 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                   size="sm"
                   {...styles.editButton}
                 >
-                  {t('todo.edit')}
+                  {t("todo.edit")}
                 </Button>
                 <Button
                   onClick={() => onDelete(todo.id)}
                   size="sm"
                   {...styles.deleteButton}
                 >
-                  {t('todo.delete')}
+                  {t("todo.delete")}
                 </Button>
               </Flex>
             </>

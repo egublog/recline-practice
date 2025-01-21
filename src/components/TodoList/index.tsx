@@ -17,11 +17,11 @@ const MotionVStack = motion(VStack);
 const MotionBox = motion(Box);
 
 export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
-  const completedTodos = todos.filter(todo => todo.completed);
-  const pendingTodos = todos.filter(todo => !todo.completed);
+  const completedTodos = todos.filter((todo) => todo.completed);
+  const pendingTodos = todos.filter((todo) => !todo.completed);
   const styles = useStyles();
   const { t } = useTranslation();
-  
+
   return (
     <MotionVStack
       spacing={6}
@@ -36,11 +36,9 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
         <MotionBox variants={listAnimations.listItem}>
           <Box {...styles.sectionHeader}>
             <Flex justify="space-between" align="center">
-              <Text {...styles.sectionTitle}>
-                {t('todo.sections.pending')}
-              </Text>
+              <Text {...styles.sectionTitle}>{t("todo.sections.pending")}</Text>
               <Text {...styles.countText}>
-                {t('todo.count', { count: pendingTodos.length })}
+                {t("todo.count", { count: pendingTodos.length })}
               </Text>
             </Flex>
           </Box>
@@ -68,10 +66,10 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
           <Box {...styles.completedSectionHeader}>
             <Flex justify="space-between" align="center">
               <Text {...styles.completedSectionTitle}>
-                {t('todo.sections.completed')}
+                {t("todo.sections.completed")}
               </Text>
               <Text {...styles.countText}>
-                {t('todo.count', { count: completedTodos.length })}
+                {t("todo.count", { count: completedTodos.length })}
               </Text>
             </Flex>
           </Box>
@@ -90,11 +88,8 @@ export function TodoList({ todos, onToggle, onDelete, onEdit }: TodoListProps) {
       )}
 
       {todos.length === 0 && (
-        <MotionBox
-          variants={listAnimations.listItem}
-          {...styles.emptyState}
-        >
-          <Text>{t('todo.sections.empty')}</Text>
+        <MotionBox variants={listAnimations.listItem} {...styles.emptyState}>
+          <Text>{t("todo.sections.empty")}</Text>
         </MotionBox>
       )}
     </MotionVStack>
