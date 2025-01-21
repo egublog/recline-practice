@@ -1,16 +1,15 @@
-import { useColorModeValue } from "@chakra-ui/react";
+import { useAppTheme } from "../../contexts/ThemeContext";
 
 export const useStyles = () => {
-  const buttonScheme = useColorModeValue("teal", "purple");
-  const headerBg = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.600", "gray.300");
-  const dividerColor = useColorModeValue(`${buttonScheme}.100`, `${buttonScheme}.700`);
+  const { mode, buttonScheme, boxBg, textColor } = useAppTheme();
+  const dividerColor =
+    mode === "light" ? `${buttonScheme}.100` : `${buttonScheme}.700`;
 
   const baseHeader = {
     mb: 4,
     p: 4,
     borderRadius: "lg",
-    bg: headerBg,
+    bg: boxBg,
     boxShadow: "sm",
     sx: {
       position: "relative",
@@ -22,8 +21,8 @@ export const useStyles = () => {
         left: 0,
         right: 0,
         height: "4px",
-      }
-    }
+      },
+    },
   };
 
   return {
@@ -33,9 +32,9 @@ export const useStyles = () => {
         ...baseHeader.sx,
         _before: {
           ...baseHeader.sx._before,
-          bgGradient: `linear(to-r, ${buttonScheme}.400, ${buttonScheme}.600)`
-        }
-      }
+          bgGradient: `linear(to-r, ${buttonScheme}.400, ${buttonScheme}.600)`,
+        },
+      },
     },
 
     completedSectionHeader: {
@@ -44,41 +43,41 @@ export const useStyles = () => {
         ...baseHeader.sx,
         _before: {
           ...baseHeader.sx._before,
-          bgGradient: `linear(to-r, green.400, ${buttonScheme}.400)`
-        }
-      }
+          bgGradient: `linear(to-r, green.400, ${buttonScheme}.400)`,
+        },
+      },
     },
 
     sectionTitle: {
       fontSize: "lg",
       fontWeight: "bold",
       bgGradient: `linear(to-r, ${buttonScheme}.500, ${buttonScheme}.700)`,
-      bgClip: "text"
+      bgClip: "text",
     },
 
     completedSectionTitle: {
       fontSize: "lg",
       fontWeight: "bold",
       bgGradient: `linear(to-r, green.500, ${buttonScheme}.500)`,
-      bgClip: "text"
+      bgClip: "text",
     },
 
     countText: {
       fontSize: "sm",
-      color: textColor
+      color: textColor,
     },
 
     divider: {
-      borderColor: dividerColor
+      borderColor: dividerColor,
     },
 
     emptyState: {
       p: 8,
       textAlign: "center",
       color: textColor,
-      bg: headerBg,
+      bg: boxBg,
       borderRadius: "lg",
-      boxShadow: "sm"
-    }
+      boxShadow: "sm",
+    },
   };
 };
