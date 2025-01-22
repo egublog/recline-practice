@@ -83,7 +83,7 @@ const TodoItem = memo(({ todo, onToggle, onDelete, onEdit }: TodoItemProps) => {
                 onClick={() => setIsEditing(true)}
                 {...styles.textBox}
               >
-                <Text {...styles.todoText(todo.completed)}>{todo.text}</Text>
+                <Text sx={styles.todoText(todo.completed)}>{todo.text}</Text>
               </Box>
             )}
           </Flex>
